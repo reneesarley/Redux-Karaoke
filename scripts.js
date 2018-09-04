@@ -9,13 +9,17 @@ const initialState = {
 
 // REDUCER WILL GO HERE
 const reducer = (state = initialState, action) => {
+  let newState;
   switch (action.type) {
     case 'NEXT_LYRIC':
       let newArrayPosition = state.arrayPosition + 1;
-      let newState = {
+        newState = {
         songLyricsArray: state.songLyricsArray,
         arrayPosition: newArrayPosition
       }
+      return newState;
+      case 'RESTART_SONG':
+      newState = initialState;
       return newState;
     default:
       return state;
@@ -28,8 +32,9 @@ const { expect } = window;
 
 expect(reducer(initialState, { type: null})).toEqual(initialState);
 
-expect(reducer(initialState, {type: 'NEXT_LYRIC'})).toEqual({songLyricsArray
-: songLyricsArray, arrayPosition: 1})
+expect(reducer(initialState, {type: 'NEXT_LYRIC'})).toEqual({songLyricsArray: songLyricsArray, arrayPosition: 1});
+
+expect(reducer({songLyricsArray: songLyricsArray, arrayPosition: 1}, {type: 'RESTART_SONG'})).toEqual(initialState);
 
 // REDUX STORE
 const { createStore } = Redux;
