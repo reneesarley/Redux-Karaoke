@@ -36,6 +36,17 @@ const { createStore } = Redux;
 const store = createStore(reducer);
 console.log(store.getState());
 
+//RENDERING STATE IN THE DOM
+const renderlyrics = () => {
+  const lyricsDisplay = document.getElementById('lyrics');
+  while (lyricsDisplay.firstChild) {
+    lyricsDisplay.removeChild(lyricsDisplay.firstChild);
+  }
+  const currentLine = store.getState().songLyricsArray[store.getState().arrayPosition];
+  const renderedLine = document.createTextNode(currentLine);
+  document.getElementById('lyrics').appendChild(renderedLine);
+}
+
 // CLICK LISTENER
 const userClick = () => {
   console.log('click');
