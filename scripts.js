@@ -37,7 +37,7 @@ const store = createStore(reducer);
 console.log(store.getState());
 
 //RENDERING STATE IN THE DOM
-const renderlyrics = () => {
+const renderLyrics = () => {
   const lyricsDisplay = document.getElementById('lyrics');
   while (lyricsDisplay.firstChild) {
     lyricsDisplay.removeChild(lyricsDisplay.firstChild);
@@ -47,7 +47,12 @@ const renderlyrics = () => {
   document.getElementById('lyrics').appendChild(renderedLine);
 }
 
+window.onload = function() {
+  renderLyrics();
+}
+
 // CLICK LISTENER
 const userClick = () => {
-  console.log('click');
+  store.dispatch({ type: 'NEXT_LYRIC'});
+  console.log(store.getState());
 }
