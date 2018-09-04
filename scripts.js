@@ -53,6 +53,10 @@ const lyricChangeReducer = (state = initialState.songsById, action) => {
   }
 }
 
+const songChangeReducer = (state = initialState.currentSongId, action)=> {
+  return state;
+}
+
 // JEST TESTS + SETUP WILL GO HERE
 const { expect } = window;
 
@@ -91,6 +95,8 @@ expect(lyricChangeReducer(initialState.songsById, { type: 'RESTART_SONG', curren
     arrayPosition: 0,
   }
 });
+
+expect(songChangeReducer(initialState, {type: null})).toEqual(initialState);
 
 // REDUX STORE
 const { createStore } = Redux;
