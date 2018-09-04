@@ -58,8 +58,13 @@ window.onload = function() {
 
 // CLICK LISTENER
 const userClick = () => {
+  let currentState = store.getState();
+  if (currentState.arrayPosition === currentState.songLyricsArray.length){
+    store.dispatch({ type: 'RESTART_SONG'})
+  } else {
   store.dispatch({ type: 'NEXT_LYRIC'});
   console.log(store.getState());
+  }
 }
 
 // SUBSCRIBE TO REDUX
