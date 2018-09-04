@@ -33,22 +33,24 @@ const lyricChangeReducer = (state = initialState.songsById, action) => {
   switch (action.type) {
     case 'NEXT_LYRIC':
       newArrayPosition = state[action.currentSongId].arrayPosition + 1;
-      newSongsByIdEntry = Object.assign({}, state[action.currentSongId], {arrayPosition: newArrayPosition })
+      newSongsByIdEntry = Object.assign({}, state[action.currentSongId], {
+        arrayPosition: newArrayPosition
+      })
       newSongsByIdStateSlice = Object.assign({}, state, {
         [action.currentSongId]: newSongsByIdEntry
       });
       return newSongsByIdStateSlice;
     case 'RESTART_SONG':
-        newSongsByIdEntry = Object.assign({}, state[action.currentSongId], {
-          arrayPosition: 0
-        })
-        newSongsByIdStateSlice = Object.assign({}, state, {
-          [action.currentSongId]: newSongsByIdEntry
-        });
-        return newSongsByIdStateSlice;
-      default:
-        return state;
-    }
+      newSongsByIdEntry = Object.assign({}, state[action.currentSongId], {
+        arrayPosition: 0
+      })
+      newSongsByIdStateSlice = Object.assign({}, state, {
+        [action.currentSongId]: newSongsByIdEntry
+      });
+      return newSongsByIdStateSlice;
+    default:
+      return state;
+  }
 }
 
 // JEST TESTS + SETUP WILL GO HERE
@@ -96,30 +98,30 @@ const store = createStore(lyricChangeReducer);
 console.log(store.getState());
 
 //RENDERING STATE IN THE DOM
-const renderLyrics = () => {
-  const lyricsDisplay = document.getElementById('lyrics');
-  while (lyricsDisplay.firstChild) {
-    lyricsDisplay.removeChild(lyricsDisplay.firstChild);
-  }
-  const currentLine = store.getState().songLyricsArray[store.getState().arrayPosition];
-  const renderedLine = document.createTextNode(currentLine);
-  document.getElementById('lyrics').appendChild(renderedLine);
-}
-
-window.onload = function() {
-  renderLyrics();
-}
+// const renderLyrics = () => {
+//   const lyricsDisplay = document.getElementById('lyrics');
+//   while (lyricsDisplay.firstChild) {
+//     lyricsDisplay.removeChild(lyricsDisplay.firstChild);
+//   }
+//   const currentLine = store.getState().songLyricsArray[store.getState().arrayPosition];
+//   const renderedLine = document.createTextNode(currentLine);
+//   document.getElementById('lyrics').appendChild(renderedLine);
+// }
+//
+// window.onload = function() {
+//   renderLyrics();
+// }
 
 // CLICK LISTENER
-const userClick = () => {
-  let currentState = store.getState();
-  if (currentState.arrayPosition === currentState.songLyricsArray.length){
-    store.dispatch({ type: 'RESTART_SONG'})
-  } else {
-  store.dispatch({ type: 'NEXT_LYRIC'});
-  console.log(store.getState());
-  }
-}
-
-// SUBSCRIBE TO REDUX
-store.subscribe(renderLyrics);
+// const userClick = () => {
+//   let currentState = store.getState();
+//   if (currentState.arrayPosition === currentState.songLyricsArray.length){
+//     store.dispatch({ type: 'RESTART_SONG'})
+//   } else {
+//   store.dispatch({ type: 'NEXT_LYRIC'});
+//   console.log(store.getState());
+//   }
+// }
+//
+// // SUBSCRIBE TO REDUX
+// store.subscribe(renderLyrics);
